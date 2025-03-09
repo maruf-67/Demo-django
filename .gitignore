@@ -1,3 +1,9 @@
 /db.sqlite3
 /myenv
 /*/static
+/*/media
+/.vscode
+/.idea
+/*/__pycache__
+/*/*.pyc
+/*/*.pyo
