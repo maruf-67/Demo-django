@@ -14,8 +14,3 @@ def contact(request):
 def post(request):
     return render(request, 'views/post.html')  # Add this line
 
-def login(request):
-    return render(request, 'views/login.html')  # Add this line
-
-def register(request):
-    return render(request, 'views/register.html')  # Add this line

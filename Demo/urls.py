@@ -20,11 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from main import urls as main_urls  # Add this line
+from users import urls as users_urls  # Add this line
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(main_urls)),  # Add this line
+    path('', include(users_urls)),  # Add this line
 ]
 
-
-urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Add this line
+if settings.DEBUG:  # Add this line
+    urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Add this line
