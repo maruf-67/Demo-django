@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
 from django.contrib import messages
 from django.views import View
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
@@ -49,11 +50,11 @@ def register(request):
 
     return render(request, 'views/register.html', {'register_form': register_form})
 
+@login_required
 def logout(request):
     auth_logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('index')
-
 
 class RegisterView(View):
 
