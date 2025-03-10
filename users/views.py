@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
-from django.shortcuts import redirect
+from django.contrib import messages
 
 
 def login(request):
@@ -13,17 +13,22 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request,user)
+                messages.success(request, f"You are now logged in as {username}")
                 return redirect('index')
             else:
-                pass
+                messages.error(request, "Invalid username or password.")
+       
+                
             
     elif request.method == 'GET':
         login_form = AuthenticationForm()
-        return render(request, 'views/login.html',{'login_form': login_form})            
+
+    return render(request, 'views/login.html',{'login_form': login_form})            
 
 def register(request):
     return render(request, 'views/register.html')  # Add this line
 
 def logout(request):
     auth_logout(request)
+    messages.info(request, "You have successfully logged out.")
     return redirect('index')
