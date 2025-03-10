@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
+from django.shortcuts import redirect
 
 
 def login(request):
@@ -14,9 +13,9 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request,user)
-                return render(request, 'views/register.html')
+                return redirect('index')
             else:
-                return render(request, 'views/login.html', {'login_form': login_form})
+                pass
             
     elif request.method == 'GET':
         login_form = AuthenticationForm()
@@ -24,3 +23,7 @@ def login(request):
 
 def register(request):
     return render(request, 'views/register.html')  # Add this line
+
+def logout(request):
+    auth_logout(request)
+    return redirect('index')
