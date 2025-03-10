@@ -32,6 +32,7 @@ def register(request):
         register_form = UserCreationForm(request.POST)
         if register_form.is_valid():
             user = register_form.save()
+            user.refresh_from_db() # load the profile instance created by the signal
             username = register_form.cleaned_data.get('username')
             messages.success(request, f"Account created for {username}")
             auth_login(request, user)

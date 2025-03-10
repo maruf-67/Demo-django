@@ -20,8 +20,15 @@ def create_profile(sender, instance, created, **kwargs):
 def delete_profile(sender, instance, **kwargs):
     try:
         user_profile = Profile.objects.get(user=instance)
+        try:
+            user_location = Location.objects.get(profile=instance.profile)
+            user_location.delete()
+        except Location.DoesNotExist:
+            pass
         if user_profile.photo:
             user_profile.photo.delete()
         user_profile.delete()
+       
+
     except Profile.DoesNotExist:
         pass
