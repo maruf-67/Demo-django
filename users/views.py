@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
 from django.contrib import messages
 
@@ -17,16 +17,31 @@ def login(request):
                 return redirect('index')
             else:
                 messages.error(request, "Invalid username or password.")
-       
-                
-            
+
+        # else:
+        #     messages.error(request, "Invalid username or password.")
+
     elif request.method == 'GET':
         login_form = AuthenticationForm()
 
-    return render(request, 'views/login.html',{'login_form': login_form})            
+    return render(request, 'views/login.html',{'login_form': login_form})
 
 def register(request):
-    return render(request, 'views/register.html')  # Add this line
+    if request.method == 'POST':
+        register_form = UserCreationForm(request.POST)
+        if register_form.is_valid():
+            user = register_form.save()
+            username = register_form.cleaned_data.get('username')
+            messages.success(request, f"Account created for {username}")
+            auth_login(request, user)
+            return redirect('index')
+        else:
+            messages.error(request, "Please correct the error below.")
+
+    elif request.method == 'GET':
+        register_form = UserCreationForm()
+
+    return render(request, 'views/register.html', {'register_form': register_form})
 
 def logout(request):
     auth_logout(request)

@@ -109,10 +109,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# Login settings
 LOGIN_REDIRECT_URL = 'index'  # Add this line
 LOGOUT_REDIRECT_URL = 'index'  # Add this line
 LOGIN_URL = 'login'  # Add this line
+
+# Messages
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
