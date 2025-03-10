@@ -6,6 +6,8 @@ from django.views import View
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('index')  # Redirect if already logged in
     if request.method == 'POST':
         login_form = AuthenticationForm(data=request.POST)
         if login_form.is_valid():
@@ -28,6 +30,8 @@ def login(request):
     return render(request, 'views/login.html',{'login_form': login_form})
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('index')  # Redirect if already logged in
     if request.method == 'POST':
         register_form = UserCreationForm(request.POST)
         if register_form.is_valid():
