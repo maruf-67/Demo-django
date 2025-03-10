@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'localflavor',  # Add this line
+    "crispy_forms",
+    "crispy_bootstrap5",
     'main',  # Add this line
     'users',
 ]
+
+# Default primary key field type
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
