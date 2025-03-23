@@ -36,11 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_quill',
     'localflavor',  # Add this line
     "crispy_forms",
     "crispy_bootstrap5",
     'main',  # Add this line
     'users',
+    'blog',
 ]
 
 # Default primary key field type
@@ -145,3 +147,23 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Optional: Quill Editor configuration
+QUILL_CONFIGS = {
+    'default': {
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                ['bold', 'italic', 'underline'],
+                ['blockquote', 'code-block'],
+                [{'header': 1}, {'header': 2}],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                [{'script': 'sub'}, {'script': 'super'}],
+                [{'color': []}, {'background': []}],
+                ['image', 'link'],
+                ['clean']
+            ]
+        }
+    }
+}

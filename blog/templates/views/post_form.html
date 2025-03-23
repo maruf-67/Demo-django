@@ -1,0 +1,48 @@
+{% extends 'layout/default.html' %}
+{% load static %}
+
+{% block banner %}
+  {% block extra_head %}
+    <!-- Quill JS/CSS is automatically included via form.media -->
+  {% endblock %}
+
+  <header class="masthead" style="background-image: url({% static 'assets/img/register-bg.jpg' %})">
+    <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <div class="page-heading">
+            <h1>Register</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <h2 class="mb-4">
+            {% if form.instance.pk %}
+              Edit Post
+            {% else %}
+              New Post
+            {% endif %}
+          </h2>
+          <div class="card">
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}  <!-- This includes Quill JS/CSS -->
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
